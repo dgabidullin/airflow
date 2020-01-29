@@ -181,6 +181,7 @@ def backfill(args, dag=None):
     if args.task_regex:
         dag = dag.sub_dag(
             task_regex=args.task_regex,
+            include_downstream=args.downstream,
             include_upstream=not args.ignore_dependencies)
 
     run_conf = None
@@ -2057,7 +2058,7 @@ class CLIFactory(object):
                 'mark_success', 'local', 'donot_pickle', 'yes',
                 'bf_ignore_dependencies', 'bf_ignore_first_depends_on_past',
                 'subdir', 'pool', 'delay_on_limit', 'dry_run', 'verbose', 'conf',
-                'reset_dag_run', 'rerun_failed_tasks', 'run_backwards'
+                'reset_dag_run', 'rerun_failed_tasks', 'run_backwards', 'downstream'
             )
         }, {
             'func': list_dag_runs,

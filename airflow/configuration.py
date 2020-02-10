@@ -734,7 +734,12 @@ log.info("Reading the config from %s", AIRFLOW_CONFIG)
 
 conf = AirflowConfigParser(default_config=parameterized_config(DEFAULT_CONFIG))
 
-conf.read(AIRFLOW_CONFIG)
+configs = [AIRFLOW_CONFIG]
+
+if 'AIRFLOW_DEV_CONF' in os.environ:
+    configs.append(os.environ['AIRFLOW_DEV_CONF'])
+
+conf.read(configs)
 
 if conf.has_option('core', 'AIRFLOW_HOME'):
     msg = (
